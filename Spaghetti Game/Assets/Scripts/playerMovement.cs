@@ -33,3 +33,7 @@ public class playerMovement : MonoBehaviour
         jump = false;
     }
 }
+
+
+//player is sometimes kind of sticky 
+//need to look into other script
