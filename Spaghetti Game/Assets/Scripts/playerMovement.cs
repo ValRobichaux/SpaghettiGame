@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
+    public CharacterController2D controller;
 
-    public float moveSpeed = 5f;
-    public Rigidbody2D rb;
-    Vector2 movement;
+    public float runSpeed = 5f;
+
+    float horizontalMove = 0f;
+
+    public Animator animator;
+
+    bool jump = false;
 
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        
+        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-        //some really fucking stupid comments for testing
+        animator.SetFloat("Horizontal",Input.GetAxisRaw("Horizontal"));
+        
+        if(Input.GetButtonDown("Jump")){
+            jump = true;
+        }
+        
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        controller.Move(horizontalMove * Time.fixedDeltaTime,false,jump);
+        jump = false;
     }
 }
